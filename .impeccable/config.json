@@ -1,0 +1,23 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "space grotesk",
+        "createdAt": "2026-09-11T04:09:15.867Z",
+        "reason": "typeface specified in the user's Claude Design handoff (Website Redesign Preview.dc.html), not an AI-authored choice; implemented as given"
+      },
+      {
+        "rule": "marketing-buzzword",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-09-11T04:09:27.217Z",
+        "reason": "service-copy phrasing (scalable/seamless/enterprise) is verbatim from the user's Claude Design handoff, not AI-authored; implementing given design/copy as instructed"
+      }
+    ]
+  }
+}
