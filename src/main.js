@@ -6,10 +6,16 @@ const onScrollHeader = () => header.classList.toggle("scrolled", window.scrollY 
 onScrollHeader();
 window.addEventListener("scroll", onScrollHeader, { passive: true });
 
-navToggle.addEventListener("click", () => header.classList.toggle("nav-open"));
+navToggle.addEventListener("click", () => {
+  const open = header.classList.toggle("nav-open");
+  navToggle.setAttribute("aria-expanded", String(open));
+});
 const currentPage = location.pathname.split("/").pop() || "index.html";
 header.querySelectorAll("nav a").forEach((link) => {
-  link.addEventListener("click", () => header.classList.remove("nav-open"));
+  link.addEventListener("click", () => {
+    header.classList.remove("nav-open");
+    navToggle.setAttribute("aria-expanded", "false");
+  });
   if (link.getAttribute("href") === currentPage) link.classList.add("active");
 });
 

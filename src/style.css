@@ -103,12 +103,32 @@ section{padding-block:clamp(56px,8vw,108px);}
 .usecase-features{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;}
 .usecase-features li{padding:6px 12px;border-radius:999px;border:1px solid var(--line);font-size:12.5px;color:var(--muted);}
 
+/* On the homepage, the panel has the full section width to work with:
+   split it into a copy column and a feature column instead of leaving
+   most of the width empty next to a narrow centered card. */
+@media (min-width:761px){
+  #services .usecase-panel{max-width:none;}
+  #services .usecase-copy{display:grid;grid-template-columns:1fr 1fr;column-gap:clamp(32px,4vw,56px);}
+  #services .usecase-copy h3{grid-column:1;grid-row:1;}
+  #services .usecase-copy > p{grid-column:1;grid-row:2;align-self:start;}
+  #services .usecase-copy > a{grid-column:1;grid-row:3;align-self:start;margin-top:4px;}
+  #services .usecase-features{grid-column:2;grid-row:1/4;flex-direction:column;align-content:start;align-self:start;margin-bottom:0;}
+  #services .usecase-features li{width:fit-content;}
+}
+
 /* ---- Step cards (reused for Work) ---- */
 .steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,32px);}
 .step-card{border-radius:20px;overflow:hidden;border:1px solid var(--line);background:var(--panel);}
 .step-media{aspect-ratio:4/3;overflow:hidden;}
 .step-media img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.22,1,.36,1);}
 .step-card:hover .step-media img{transform:scale(1.045);}
+/* When a grid's last row would otherwise leave a lone card stranded next to empty
+   columns, stretch that card full-width and lay it out like the featured card. */
+.steps-grid > .step-card:nth-child(3n+1):last-child{grid-column:1/-1;display:grid;grid-template-columns:1fr 1.2fr;}
+.steps-grid > .step-card:nth-child(3n+1):last-child .step-media{aspect-ratio:auto;}
+@media (max-width:900px){
+  .steps-grid > .step-card:nth-child(3n+1):last-child{grid-template-columns:1fr;}
+}
 .step-body{padding:22px 24px 26px;}
 .step-body small{color:var(--muted-2);font-weight:700;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;}
 .step-body h3{margin:8px 0 0;font-size:1.15rem;}
@@ -124,6 +144,7 @@ section{padding-block:clamp(56px,8vw,108px);}
 .work-feature .step-body h3{margin-top:12px;font-size:clamp(1.5rem,2.6vw,2.1rem);}
 .work-feature .step-body p{margin-top:16px;font-size:16px;max-width:32rem;}
 .work-feature .step-tags{margin-top:22px;}
+.work-feature:hover .step-media img{transform:scale(1.03);}
 @media (max-width:760px){
   .work-feature{grid-template-columns:1fr;}
   .work-feature .step-media{aspect-ratio:4/3;min-height:0;}
@@ -156,8 +177,8 @@ section{padding-block:clamp(56px,8vw,108px);}
 
 /* ---- Final CTA ---- */
 #final-cta{position:relative;z-index:0;isolation:isolate;text-align:center;overflow:hidden;border-radius:28px;margin-inline:auto;width:min(1160px,calc(100% - 48px));padding:clamp(64px,10vw,120px) 24px;}
-#final-cta img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:saturate(.7) brightness(.55);}
-#final-cta::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(10,10,10,.4),rgba(10,10,10,.78));}
+#final-cta img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:saturate(.85) brightness(.78);}
+#final-cta::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(10,10,10,.28),rgba(10,10,10,.66));}
 #final-cta h2,#final-cta p,#final-cta .btn{position:relative;z-index:2;}
 #final-cta h2{max-width:26ch;margin:0 auto;font-size:clamp(1.8rem,3.6vw,2.8rem);}
 #final-cta p{max-width:32rem;margin:18px auto 0;}
@@ -168,8 +189,9 @@ section{padding-block:clamp(56px,8vw,108px);}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
 .form-field{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;}
 .form-field label{font-size:12.5px;color:var(--muted-2);}
-.form-field input,.form-field textarea{background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:#fff;font-family:inherit;font-size:14.5px;}
-.form-field input:focus,.form-field textarea:focus{outline:none;border-color:rgba(255,255,255,.4);}
+.form-field input,.form-field textarea{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.22);border-radius:10px;padding:12px 14px;color:#fff;font-family:inherit;font-size:14.5px;transition:border-color .2s ease,background .2s ease;}
+.form-field input:hover,.form-field textarea:hover{border-color:rgba(255,255,255,.32);}
+.form-field input:focus,.form-field textarea:focus{outline:none;border-color:rgba(255,255,255,.55);background:rgba(255,255,255,.07);}
 .form-field textarea{resize:vertical;min-height:110px;}
 .contact-status{font-size:13px;color:var(--muted-2);min-height:18px;}
 .contact-detail{margin-bottom:24px;}
