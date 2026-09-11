@@ -123,6 +123,7 @@ function initMotion() {
   const serviceRows = Array.from(root.querySelectorAll("[data-service-row]"));
   const serviceImgs = Array.from(root.querySelectorAll("[data-service-img]"));
   const serviceGlow = root.querySelector("[data-service-glow]");
+  const stickyImgCol = serviceGlow ? serviceGlow.parentElement : null;
   const serviceIndex = root.querySelector("[data-service-index]");
   const galleries = Array.from(root.querySelectorAll("[data-hgallery]"));
   const kinetics = Array.from(root.querySelectorAll("[data-kinetic-row]"));
@@ -156,12 +157,18 @@ function initMotion() {
   // Horizontal work gallery: pin height = viewport + track overflow. Falls back
   // to a wrapping grid when pinning is off, motion is reduced, or space is tight.
   let galleryLayout = [];
+  // Below 760px the services split collapses to one column (see CSS), which removes
+  // the tall shared grid row the sticky image relies on for its pin range — so its
+  // "stuck" state would otherwise float over every row instead of just its own.
+  let flatServices = false;
   const layoutGalleries = () => {
     if (sideTab) sideTab.style.display = window.innerWidth < 980 ? "none" : "flex";
     if (heroFrame) {
       heroFrame.style.width = "100%";
       heroGap = Math.max(0, window.innerWidth - heroFrame.getBoundingClientRect().right - 2);
     }
+    flatServices = window.innerWidth < 760;
+    if (stickyImgCol) stickyImgCol.style.position = flatServices ? "static" : "sticky";
     const flat = reduced || !pinGallery || window.innerWidth < 620;
     galleryLayout = [];
     galleries.forEach((g) => {
@@ -476,8 +483,13 @@ function initMotion() {
         if (focus > lead) { lead = focus; leadIndex = i; }
         const rb = row.getBoundingClientRect();
         const dir = rb.top > vh * 0.5 ? 1 : -1;
-        row.style.opacity = (0.3 + focus * 0.7).toFixed(3);
-        row.style.transform = `translate3d(${((1 - focus) * 10 * k).toFixed(1)}px, ${(dir * (1 - focus) * 14 * k).toFixed(1)}px, 0) scale(${(0.985 + focus * 0.015).toFixed(3)})`;
+        if (flatServices) {
+          row.style.opacity = "1";
+          row.style.transform = "none";
+        } else {
+          row.style.opacity = (0.3 + focus * 0.7).toFixed(3);
+          row.style.transform = `translate3d(${((1 - focus) * 10 * k).toFixed(1)}px, ${(dir * (1 - focus) * 14 * k).toFixed(1)}px, 0) scale(${(0.985 + focus * 0.015).toFixed(3)})`;
+        }
         const img = serviceImgs[i];
         if (img) {
           img.style.opacity = focus.toFixed(3);

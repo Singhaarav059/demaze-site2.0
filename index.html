@@ -21,6 +21,12 @@
   .nav-link{border:none;background:none;cursor:pointer;font-size:14px;font-weight:600;padding-bottom:4px;color:oklch(0.16 0.004 285);border-bottom:2px solid transparent;transition:color .25s ease,border-color .25s ease;text-decoration:none;}
   .nav-link.active{color:oklch(0.532 0.216 7);border-bottom-color:oklch(0.64 0.26 7);}
   [data-page][hidden]{display:none;}
+  @media (max-width:760px){
+    [style*="grid-template-columns"]{grid-template-columns:1fr !important;}
+    #site-header{flex-wrap:wrap;}
+    #site-header nav{order:3;flex:1 1 100%;justify-content:center;gap:14px 20px !important;padding-top:10px;margin-top:6px;border-top:1px solid oklch(0.86 0.014 285);}
+    #services-stage [data-service-row]{min-height:0 !important;padding-block:28px;}
+  }
 </style>
 </head>
 <body>
