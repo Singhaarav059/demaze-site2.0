@@ -69,12 +69,21 @@ section{padding-block:clamp(56px,8vw,108px);}
 #page-hero h1{font-size:clamp(2rem,4.6vw,3.2rem);line-height:1.08;max-width:26ch;margin:0 auto;}
 #page-hero .lede{margin:18px auto 0;text-align:center;}
 
-/* ---- Pull quote (reused for founder quote) ---- */
-.t-quote{max-width:42rem;margin:0 auto;text-align:center;}
-.t-quote p{font-size:clamp(1.1rem,2vw,1.4rem);color:#fff;line-height:1.5;font-weight:400;}
-.t-quote footer{margin-top:22px;}
+/* ---- Founder quote card ---- */
+.t-quote{max-width:52rem;margin:0 auto;display:grid;grid-template-columns:auto 1fr;gap:clamp(24px,3vw,40px);align-items:center;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:24px;padding:clamp(24px,3.5vw,44px);}
+.t-quote-photo{width:128px;height:128px;border-radius:18px;object-fit:cover;object-position:center 15%;flex:0 0 auto;}
+.t-quote p{font-size:clamp(1.1rem,2vw,1.35rem);color:#fff;line-height:1.5;font-weight:400;}
+.t-quote footer{margin-top:20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
 .t-quote strong{display:block;font-size:14.5px;}
 .t-quote span{color:var(--muted-2);font-size:13px;}
+.t-quote-linkedin{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;flex:0 0 auto;transition:border-color .2s ease,background .2s ease;}
+.t-quote-linkedin:hover{border-color:rgba(255,255,255,.45);background:rgba(255,255,255,.06);}
+.t-quote-linkedin svg{width:16px;height:16px;}
+@media (max-width:640px){
+  .t-quote{grid-template-columns:1fr;text-align:center;}
+  .t-quote-photo{margin:0 auto;}
+  .t-quote footer{justify-content:center;}
+}
 
 /* ---- Intro-card grid (reused for Process / Values) ---- */
 .intro-grid{margin-top:8px;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,32px);}

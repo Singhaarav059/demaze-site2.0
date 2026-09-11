@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://demaze-website-production.up.railway.app/sitemap.xml
